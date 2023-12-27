@@ -11,8 +11,8 @@ using ProductInventoryManager.Server.Models;
 namespace ProductInventoryManager.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231227082949_ProductInventoryManager.Server.Models.AppDbContext")]
-    partial class ProductInventoryManagerServerModelsAppDbContext
+    [Migration("20231227151635_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

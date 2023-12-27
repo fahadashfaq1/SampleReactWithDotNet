@@ -5,7 +5,7 @@
 namespace ProductInventoryManager.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductInventoryManagerServerModelsAppDbContext : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
