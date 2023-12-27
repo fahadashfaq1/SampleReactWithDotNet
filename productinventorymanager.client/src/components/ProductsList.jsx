@@ -18,6 +18,7 @@ const ProductsList = () => {
     axios.get('https://localhost:7015/api/Products')
       .then(response => {
         // Handle successful response
+        // test commit
         console.log(response.data);
       })
       .catch(error => {
