@@ -9,11 +9,11 @@ const AppRouter = () => {
     <BrowserRouter>
       <div>
         <Header />
-        <div className="main-content">
+        <div>
           <Routes>
-            <Route element={<ProductsList />} path="/" exact={true} />
-            <Route element={<AddProduct />} path="/add" />
-            <Route element={<EditProduct />} path="/edit/:id" />
+            <Route element={<ProductsList />} path='/' exact='true' />
+            <Route element={<AddProduct />} path='/add' />
+            <Route element={<EditProduct />} path='/edit/:id' />
           </Routes>
         </div>
       </div>

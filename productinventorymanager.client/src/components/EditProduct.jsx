@@ -1,36 +1,35 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProductForm from './ProductForm';
 
-const EditBook = () => {
+const EditProduct = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([
-    {
-      id: 2,
-      name: 'LED TV',
-      quantity: 5,
-      price: '450',
-    },
-  ]);
+  const [product, setProduct] = useState();
   const { id } = useParams();
-  const productToEdit = products.find((product) => product.id === +id);
 
-  const handleOnSubmit = (product) => {
-    const filteredProducts = products.filter((product) => product.id !== id);
-    setProducts([product, ...filteredProducts]);
+  useEffect(() => {
+    axios.get(`https://localhost:7015/api/Products/${id}`).then((response) => {
+      setProduct(response.data);
+    });
+  }, []);
+  const handleOnSubmit = async (product) => {
+    await axios.put(`https://localhost:7015/api/Products/${product.productID}`, product);
     navigate('/');
   };
 
   return (
     <div>
       <ProductForm
-        name={productToEdit.name}
-        quantity={productToEdit.quantity}
-        price={productToEdit.price}
-        handleOnSubmit={handleOnSubmit}
+        name={product?.prodName}
+        quantity={product?.quantity}
+        price={product?.price}
+        id={product?.productID}
+        code={product?.productCode}
+        _handleOnSubmit={handleOnSubmit}
       />
     </div>
   );
 };
 
-export default EditBook;
+export default EditProduct;

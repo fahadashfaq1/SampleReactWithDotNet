@@ -1,15 +1,16 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import ProductForm from './ProductForm';
 
 const AddProduct = () => {
-  const handleOnSubmit = (product) => {
-    console.log(product);
+  const navigate = useNavigate();
+  const handleOnSubmit = async (product) => {
+    await axios.post('https://localhost:7015/api/Products', product);
+    navigate('/');
   };
 
   return (
-    <React.Fragment>
-      <ProductForm _handleOnSubmit={handleOnSubmit} />
-    </React.Fragment>
+    <ProductForm _handleOnSubmit={handleOnSubmit} fromAddProduct />
   );
 };
 

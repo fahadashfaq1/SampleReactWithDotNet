@@ -1,57 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
+import { useState, useEffect } from 'react';
+import _ from 'lodash'; // utility library
 import Product from './Product';
 import axios from 'axios';
 
 const ProductsList = () => {
-  const [products, setBooks] = useState([
-    {
-      id: 2,
-      name: 'LED TV',
-      quantity: 5,
-      price: '450',
-    },
-  ]);
+  // const,let, var
+  const [products, setProducts] = useState();
 
   useEffect(() => {
-    // Make a GET request when the component mounts
-    axios.get('https://localhost:7015/api/Products')
-      .then(response => {
-        // Handle successful response
-        // test commit
-        console.log(response.data);
-      })
-      .catch(error => {
-        // Handle error
-        console.log(error.message);
-      });
+    // Promises
+    axios.get('https://localhost:7015/api/Products').then((response) => {
+      setProducts(response.data);
+    });
   }, []);
 
-  const handleRemoveProduct = (id) => {
-    setBooks(products.filter((product) => product.id !== id));
+  const handleRemoveProduct = async (id) => {
+    await axios.delete(`https://localhost:7015/api/Products/${id}`);
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.productID !== id)
+    );
   };
 
   return (
-    <React.Fragment>
-      <div className='mt-4'>
-        {!_.isEmpty(products) ? (
-          products.map((product) => (
-            <Product
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
-              handleRemoveProduct={handleRemoveProduct}
-            />
-          ))
-        ) : (
-          <h5 className='text-start'>
-            No products available. Please add some products.
-          </h5>
-        )}
-      </div>
-    </React.Fragment>
+    <div className='mt-4'>
+      {!_.isEmpty(products) ? (
+        products.map((product) => (
+          <Product
+            key={product.productID}
+            id={product.productID}
+            name={product.prodName}
+            price={product.price}
+            code={product.productCode}
+            quantity={product.quantity}
+            handleRemoveProduct={handleRemoveProduct}
+          />
+        ))
+      ) : (
+        <h5 className='text-start'>
+          No products available. Please add some products.
+        </h5>
+      )}
+    </div>
   );
 };
 
